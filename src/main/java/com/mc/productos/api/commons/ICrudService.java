@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface ICrudService<T, ID> {
+public interface ICRUDService<T, ID> {
 
 	/**
 	 * Crea un nuevo registro
@@ -40,5 +40,11 @@ public interface ICrudService<T, ID> {
 	 * @return
 	 */
 	Page<T> findAll(Pageable pageable);
+	
+	/**
+	 * Elimina un registro según su identificador
+	 * @param id
+	 */
+	void delete(ID id);
 	
 }

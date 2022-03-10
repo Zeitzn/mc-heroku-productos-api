@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public abstract class CRUDImpl<T,ID> implements ICrudService<T, ID> {
+public abstract class CRUDImpl<T,ID> implements ICRUDService<T, ID> {
 
 	protected abstract IGenericDAO<T, ID> dao();
 	
@@ -34,4 +34,8 @@ public abstract class CRUDImpl<T,ID> implements ICrudService<T, ID> {
 		return dao().findAll(pageable);
 	}
 
+	@Override
+	public void delete(ID id) {
+		dao().deleteById(id);
+	}
 }

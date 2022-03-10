@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mc.productos.api.dto.CategoryDTO;
 import com.mc.productos.api.dto.ProductDTO;
+import com.mc.productos.api.entity.Category;
 import com.mc.productos.api.entity.Product;
+import com.mc.productos.api.exceptions.ModelNotFoundException;
 import com.mc.productos.api.service.IProductService;
 
 @RestController
@@ -55,6 +59,16 @@ public class ProductController {
 	public ResponseEntity<List<ProductDTO>> findAll(){
 		List<Product> list = service.findAll();
 		return new ResponseEntity<List<ProductDTO>>(list.stream().map(x->mapper.map(x, ProductDTO.class)).collect(Collectors.toList()), HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<ProductDTO> delete(@PathVariable("id") Integer id) throws ModelNotFoundException{
+		Product product = service.findById(id);
+		if(product==null) {
+			throw new ModelNotFoundException("No se encontró el producto");
+		}
+		service.delete(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping("pagination")
