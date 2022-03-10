@@ -1,5 +1,7 @@
 package com.mc.productos.api.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,12 @@ public class ProductServiceImpl extends CRUDImpl<Product, Integer> implements IP
 	@Override
 	protected IGenericDAO<Product, Integer> dao() {
 		return dao;
+	}
+
+	@Override
+	public List<Product> search(String name) {		
+		return dao.findByNameContainingIgnoreCase(name);
+//		return dao.findByNameLike("%"+name+"%");
 	}
 	
 }

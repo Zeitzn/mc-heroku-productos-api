@@ -19,11 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mc.productos.api.dto.CategoryDTO;
 import com.mc.productos.api.dto.ProductDTO;
-import com.mc.productos.api.entity.Category;
 import com.mc.productos.api.entity.Product;
 import com.mc.productos.api.exceptions.ModelNotFoundException;
 import com.mc.productos.api.service.IProductService;
@@ -77,5 +76,11 @@ public class ProductController {
 		List<ProductDTO> listDto=result.getContent().stream().map(x->mapper.map(x, ProductDTO.class)).collect(Collectors.toList());
 		Page<ProductDTO> finalResult = new PageImpl<>(listDto,page, listDto.size()); 
 		return new ResponseEntity<Page<ProductDTO>>(finalResult, HttpStatus.OK);
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<List<ProductDTO>> search(@RequestParam("name") String name) throws Exception {		
+		List<ProductDTO> list = service.search(name).stream().map(x -> mapper.map(x, ProductDTO.class)).collect(Collectors.toList());;
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 }
