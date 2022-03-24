@@ -25,7 +25,6 @@ public class ProductServiceImpl extends CRUDImpl<Product, Integer> implements IP
 	@Override
 	public List<Product> search(String name) {		
 		return dao.findByNameContainingIgnoreCase(name);
-//		return dao.findByNameLike("%"+name+"%");
 	}
 	
 }
