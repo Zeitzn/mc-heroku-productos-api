@@ -28,8 +28,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mc.productos.api.dto.ProductConsolidationDTO;
 import com.mc.productos.api.dto.ProductDTO;
+import com.mc.productos.api.entity.Category;
 import com.mc.productos.api.entity.Product;
-import com.mc.productos.api.exceptions.ModelNotFoundException;
+import com.mc.productos.api.exceptions.ResourceNotFoundException;
+import com.mc.productos.api.service.ICategoryService;
 import com.mc.productos.api.service.IProductService;
 
 @RestController
@@ -40,17 +42,28 @@ public class ProductController {
 	private IProductService service;
 
 	@Autowired
+	private ICategoryService categoryService;
+
+	@Autowired
 	private ModelMapper mapper;
 
 	@PostMapping
-	public ResponseEntity<ProductDTO> register(@Valid @RequestBody ProductDTO producto) {
-		Product result = service.register(mapper.map(producto, Product.class));
+	public ResponseEntity<ProductDTO> register(@Valid @RequestBody ProductDTO product) {
+		Category category = categoryService.findById(product.getCategory().getId());
+		if (category == null) {
+			throw new ResourceNotFoundException("Category", "id", product.getCategory().getId());
+		}
+		Product result = service.register(mapper.map(product, Product.class));
 		return new ResponseEntity<>(mapper.map(result, ProductDTO.class), HttpStatus.CREATED);
 	}
 
 	@PutMapping
-	public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductDTO producto) {
-		Product result = service.update(mapper.map(producto, Product.class));
+	public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductDTO product) {
+		Category category = categoryService.findById(product.getCategory().getId());
+		if (category == null) {
+			throw new ResourceNotFoundException("Category", "id", product.getCategory().getId());
+		}
+		Product result = service.update(mapper.map(product, Product.class));
 		return new ResponseEntity<>(mapper.map(result, ProductDTO.class), HttpStatus.OK);
 	}
 
@@ -72,10 +85,10 @@ public class ProductController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ProductDTO> delete(@PathVariable("id") Integer id) throws ModelNotFoundException {
+	public ResponseEntity<ProductDTO> delete(@PathVariable("id") Integer id) throws ResourceNotFoundException {
 		Product product = service.findById(id);
 		if (product == null) {
-			throw new ModelNotFoundException("No se encontró el producto");
+			throw new ResourceNotFoundException("Product", "id", id);
 		}
 		service.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -118,14 +131,13 @@ public class ProductController {
 	}
 
 	@GetMapping("/hateoas/{id}")
-	public EntityModel<ProductDTO> listarHateoas(@PathVariable("id") Integer id) throws ModelNotFoundException {
+	public EntityModel<ProductDTO> listHateoas(@PathVariable("id") Integer id) throws ResourceNotFoundException {
 
 		Product obj = service.findById(id);
-		ProductDTO dto = mapper.map(obj, ProductDTO.class);
-
 		if (obj == null) {
-			throw new ModelNotFoundException("ID NOT FOUND");
+			throw new ResourceNotFoundException("Product", "id", id);
 		}
+		ProductDTO dto = mapper.map(obj, ProductDTO.class);
 
 		EntityModel<ProductDTO> resource = EntityModel.of(dto);
 		WebMvcLinkBuilder link1 = linkTo(methodOn(this.getClass()).findById(id));

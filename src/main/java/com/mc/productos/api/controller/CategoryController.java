@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mc.productos.api.dto.CategoryDTO;
 import com.mc.productos.api.entity.Category;
-import com.mc.productos.api.exceptions.ModelNotFoundException;
+import com.mc.productos.api.exceptions.ResourceNotFoundException;
 import com.mc.productos.api.service.ICategoryService;
 
 @RestController
@@ -66,10 +66,10 @@ public class CategoryController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<CategoryDTO> delete(@PathVariable("id") Integer id) throws ModelNotFoundException {
+	public ResponseEntity<CategoryDTO> delete(@PathVariable("id") Integer id) throws ResourceNotFoundException {
 		Category category = service.findById(id);
 		if (category == null) {
-			throw new ModelNotFoundException("No se encontró la categoría");
+			throw new ResourceNotFoundException("Category","id",id);
 		}
 		service.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
