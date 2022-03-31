@@ -1,5 +1,6 @@
 package com.mc.productos.api.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class ProductServiceImpl extends CRUDImpl<Product, Integer> implements IP
 	@Override
 	public List<Product> search(String name) {		
 		return dao.findByNameContainingIgnoreCase(name);
+	}
+
+	@Override
+	public List<Product> findExpired() {
+		return dao.findByExpirationDateBefore(new Date());
 	}
 	
 }

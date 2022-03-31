@@ -49,13 +49,19 @@ public class ProductController {
 
 	@PutMapping
 	public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductDTO producto) {
+		System.out.println(producto);
 		Product result = service.update(mapper.map(producto, Product.class));
 		return new ResponseEntity<>(mapper.map(result, ProductDTO.class), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ProductDTO> findById(@PathVariable("id") Integer id) {
-		return new ResponseEntity<>(mapper.map(service.findById(id), ProductDTO.class), HttpStatus.OK);
+		Product product = service.findById(id);
+		ProductDTO result = null;
+		if (product != null) {
+			result = mapper.map(product, ProductDTO.class);
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@GetMapping
@@ -87,6 +93,13 @@ public class ProductController {
 	@GetMapping("/search")
 	public ResponseEntity<List<ProductDTO>> search(@RequestParam("name") String name) {
 		List<ProductDTO> list = service.search(name).stream().map(x -> mapper.map(x, ProductDTO.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
+	@GetMapping("/expired")
+	public ResponseEntity<List<ProductDTO>> search() {
+		List<ProductDTO> list = service.findExpired().stream().map(x -> mapper.map(x, ProductDTO.class))
 				.collect(Collectors.toList());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}

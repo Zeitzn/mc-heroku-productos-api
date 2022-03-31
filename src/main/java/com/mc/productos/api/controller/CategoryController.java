@@ -64,7 +64,7 @@ public class CategoryController {
 	public ResponseEntity<CategoryDTO> delete(@PathVariable("id") Integer id) throws ModelNotFoundException{
 		Category category = service.findById(id);
 		if(category==null) {
-			throw new ModelNotFoundException("No se encontró categoría");
+			throw new ModelNotFoundException("No se encontró la categoría");
 		}
 		service.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

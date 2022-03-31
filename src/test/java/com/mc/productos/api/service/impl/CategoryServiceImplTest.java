@@ -1,14 +1,10 @@
 package com.mc.productos.api.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mc.productos.api.dao.ICategoryDAO;
 import com.mc.productos.api.entity.Category;
-import com.mc.productos.api.service.ICategoryService;
 
 class CategoryServiceImplTest {
 		
