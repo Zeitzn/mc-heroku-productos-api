@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mc.productos.api.dto.ProductConsolidationDTO;
 import com.mc.productos.api.dto.ProductDTO;
 import com.mc.productos.api.entity.Product;
 import com.mc.productos.api.exceptions.ModelNotFoundException;
@@ -102,11 +103,17 @@ public class ProductController {
 				.collect(Collectors.toList());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/category/{categoryId}")
 	public ResponseEntity<List<ProductDTO>> findByCategory(@PathVariable("categoryId") Integer categoryId) {
 		List<ProductDTO> list = service.findByCategory(categoryId).stream().map(x -> mapper.map(x, ProductDTO.class))
 				.collect(Collectors.toList());
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
+	@GetMapping("/consolidation")
+	public ResponseEntity<List<ProductConsolidationDTO>> consolidation() {
+		List<ProductConsolidationDTO> list = service.consolidation();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 

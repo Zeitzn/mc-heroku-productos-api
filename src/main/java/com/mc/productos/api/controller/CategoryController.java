@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mc.productos.api.dto.CategoryDTO;
-import com.mc.productos.api.dto.ProductDTO;
 import com.mc.productos.api.entity.Category;
-import com.mc.productos.api.entity.Product;
 import com.mc.productos.api.exceptions.ModelNotFoundException;
 import com.mc.productos.api.service.ICategoryService;
 
