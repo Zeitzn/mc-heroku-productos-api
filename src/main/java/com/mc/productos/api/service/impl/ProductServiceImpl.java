@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mc.productos.api.commons.CRUDImpl;
 import com.mc.productos.api.commons.IGenericDAO;
 import com.mc.productos.api.dao.IProductDAO;
+import com.mc.productos.api.entity.Category;
 import com.mc.productos.api.entity.Product;
 import com.mc.productos.api.service.IProductService;
 
@@ -31,6 +32,11 @@ public class ProductServiceImpl extends CRUDImpl<Product, Integer> implements IP
 	@Override
 	public List<Product> findExpired() {
 		return dao.findByExpirationDateBefore(new Date());
+	}
+
+	@Override
+	public List<Product> findByCategory(Integer categoryId) {
+		return dao.findByCategory(Category.builder().id(categoryId).build());
 	}
 	
 }

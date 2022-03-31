@@ -22,10 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mc.productos.api.dto.CategoryDTO;
+import com.mc.productos.api.dto.ProductDTO;
 import com.mc.productos.api.entity.Category;
+import com.mc.productos.api.entity.Product;
 import com.mc.productos.api.exceptions.ModelNotFoundException;
 import com.mc.productos.api.service.ICategoryService;
-
 
 @RestController
 @RequestMapping("/api/category")
@@ -33,48 +34,55 @@ public class CategoryController {
 
 	@Autowired
 	private ICategoryService service;
-	
+
 	@Autowired
 	private ModelMapper mapper;
-		
+
 	@PostMapping
-	public ResponseEntity<CategoryDTO> register(@Valid @RequestBody CategoryDTO categoria){
+	public ResponseEntity<CategoryDTO> register(@Valid @RequestBody CategoryDTO categoria) {
 		Category result = service.register(mapper.map(categoria, Category.class));
 		return new ResponseEntity<>(mapper.map(result, CategoryDTO.class), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<CategoryDTO> update(@Valid @RequestBody CategoryDTO categoria){
+	public ResponseEntity<CategoryDTO> update(@Valid @RequestBody CategoryDTO categoria) {
 		Category result = service.update(mapper.map(categoria, Category.class));
 		return new ResponseEntity<>(mapper.map(result, CategoryDTO.class), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<CategoryDTO> findById(@PathVariable("id") Integer id){
-		return new ResponseEntity<>(mapper.map(service.findById(id), CategoryDTO.class), HttpStatus.OK);
-	}
-	
-	@GetMapping
-	public ResponseEntity<List<CategoryDTO>> findAll(){
-		List<Category> list = service.findAll();
-		return new ResponseEntity<>(list.stream().map(x->mapper.map(x, CategoryDTO.class)).collect(Collectors.toList()), HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<CategoryDTO> delete(@PathVariable("id") Integer id) throws ModelNotFoundException{
+	public ResponseEntity<CategoryDTO> findById(@PathVariable("id") Integer id) {
 		Category category = service.findById(id);
-		if(category==null) {
+		CategoryDTO result = null;
+		if (category != null) {
+			result = mapper.map(category, CategoryDTO.class);
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<CategoryDTO>> findAll() {
+		List<Category> list = service.findAll();
+		return new ResponseEntity<>(
+				list.stream().map(x -> mapper.map(x, CategoryDTO.class)).collect(Collectors.toList()), HttpStatus.OK);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<CategoryDTO> delete(@PathVariable("id") Integer id) throws ModelNotFoundException {
+		Category category = service.findById(id);
+		if (category == null) {
 			throw new ModelNotFoundException("No se encontró la categoría");
 		}
 		service.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@GetMapping("pagination")
-	public ResponseEntity<Page<CategoryDTO>> findAll(Pageable page){
+	public ResponseEntity<Page<CategoryDTO>> findAll(Pageable page) {
 		Page<Category> result = service.findAll(page);
-		List<CategoryDTO> listDto=result.getContent().stream().map(x->mapper.map(x, CategoryDTO.class)).collect(Collectors.toList());
-		Page<CategoryDTO> finalResult = new PageImpl<>(listDto,page, listDto.size()); 
+		List<CategoryDTO> listDto = result.getContent().stream().map(x -> mapper.map(x, CategoryDTO.class))
+				.collect(Collectors.toList());
+		Page<CategoryDTO> finalResult = new PageImpl<>(listDto, page, listDto.size());
 		return new ResponseEntity<>(finalResult, HttpStatus.OK);
 	}
 }

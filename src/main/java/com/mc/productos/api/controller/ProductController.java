@@ -49,7 +49,6 @@ public class ProductController {
 
 	@PutMapping
 	public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductDTO producto) {
-		System.out.println(producto);
 		Product result = service.update(mapper.map(producto, Product.class));
 		return new ResponseEntity<>(mapper.map(result, ProductDTO.class), HttpStatus.OK);
 	}
@@ -100,6 +99,13 @@ public class ProductController {
 	@GetMapping("/expired")
 	public ResponseEntity<List<ProductDTO>> search() {
 		List<ProductDTO> list = service.findExpired().stream().map(x -> mapper.map(x, ProductDTO.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("/category/{categoryId}")
+	public ResponseEntity<List<ProductDTO>> findByCategory(@PathVariable("categoryId") Integer categoryId) {
+		List<ProductDTO> list = service.findByCategory(categoryId).stream().map(x -> mapper.map(x, ProductDTO.class))
 				.collect(Collectors.toList());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
