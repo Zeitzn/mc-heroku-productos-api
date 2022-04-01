@@ -46,7 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().exceptionHandling()// Captura excepciones
 				.authenticationEntryPoint(authenticationEntryPoint)// Indica si hay permiso o no
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/**").permitAll().antMatchers("/api/auth/**")
+				.authorizeHttpRequests()
+				.antMatchers(HttpMethod.GET, "/api/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+				.antMatchers("/api/auth/**")
 				.permitAll().anyRequest().authenticated();
 
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
