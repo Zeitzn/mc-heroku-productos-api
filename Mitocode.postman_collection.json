@@ -1,0 +1,632 @@
+{
+	"info": {
+		"_postman_id": "41ae6548-a8ad-49f5-be78-211189f1160e",
+		"name": "Mitocode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Java11BackendDeveloper",
+			"item": [
+				{
+					"name": "category",
+					"item": [
+						{
+							"name": "findAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/category",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2NDg3ODgxOTgsImV4cCI6MTY0ODc4OTk5OH0.Cd_7q84B9WIEnh_tXKh3d4x6lGew6qctZ2r79zc7f3dJ4FGB6HWlAyYTV-m0lWPyYsExo0S31cMX8vPvSNfK7w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Energizantes\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/category",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"id\": 7,\r\n        \"name\": \"Galletas\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/category",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/category/2",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"category",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pagination",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/category/pagination?page=0&size=2&sort=id,desc",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"category",
+										"pagination"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "sort",
+											"value": "id,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2NDg3ODgxOTgsImV4cCI6MTY0ODc4OTk5OH0.Cd_7q84B9WIEnh_tXKh3d4x6lGew6qctZ2r79zc7f3dJ4FGB6HWlAyYTV-m0lWPyYsExo0S31cMX8vPvSNfK7w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/category/13",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"category",
+										"13"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "product",
+					"item": [
+						{
+							"name": "findAll",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Red Bull\",\r\n        \"category\": {\r\n            \"id\": 11,\r\n            \"name\": \"Energizantes\"\r\n        },\r\n        \"description\":\"lorem inpsum dolor sit amet\",\r\n        \"expirationDate\":\"2022-11-23T00:00:00\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/product",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"id\": 12,\r\n        \"name\": \"Oreo\",\r\n        \"description\": \"lorem inpsum dolor sit amet\",\r\n        \"expirationDate\": \"2022-05-01T00:00:00.482+00:00\",\r\n        \"category\": {\r\n            \"id\": 7,\r\n            \"name\": \"Galletas\"\r\n        }\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/product",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/13",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"13"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/22",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"22"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pagination",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/pagination?page=0&size=4&sort=id,desc",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"pagination"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "4"
+										},
+										{
+											"key": "sort",
+											"value": "id,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/search?name=pilsen",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "pilsen"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "hateoas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/hateoas/2",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"hateoas",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "expired",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/expired",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"expired"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/category/11",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"category",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "consolidation",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/product/consolidation",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"consolidation"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "role",
+					"item": [
+						{
+							"name": "register",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "5102fc65-db05-4ea7-b71b-1d32cbbbc8bc",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"ROLE_ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/role",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"role"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/role",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"role"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "signUp",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Isac\",\r\n    \"lastName\":\"Huamán Pineda\",\r\n    \"username\":\"admin\",\r\n    \"password\":\"123\",\r\n    \"email\":\"admin@gmail.com\",\r\n    \"roles\":[\r\n        {\r\n            \"name\":\"ROLE_ADMIN\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/signup",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/user/3",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signIn",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"usernameOrEmail\":\"admin\",\r\n    \"password\":\"123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/auth/signin",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"signin"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "host",
+			"value": "https://mitocode-productos-api.herokuapp.com",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
